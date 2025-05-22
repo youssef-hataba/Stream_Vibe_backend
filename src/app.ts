@@ -1,6 +1,7 @@
 import express from 'express';
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
+import reviewRoutes from "./routes/reviewRoutes";
 
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user",userRoutes);
+app.use("/api/reviews",reviewRoutes);
 
 
 app.get("/", (req, res) => {
