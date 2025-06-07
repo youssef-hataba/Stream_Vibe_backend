@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import asyncHandler from "../middlewares/asyncHandler";
 import User from "../models/UserModel";
+import Review from "../models/ReviewModel";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -14,9 +15,12 @@ export const getUserProfile = asyncHandler(async (req: AuthRequest, res: Respons
     })
   }
 
+  const reviews = await Review.find({ user: user._id }).select("-__v");
+
   res.status(200).json({
     status: "success",
     user,
+    reviews
   });
 });
 
