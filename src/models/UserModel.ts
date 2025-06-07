@@ -5,12 +5,14 @@ interface IFavoriteItem {
   movieId: number;
   title: string;
   thumbnail: string;
+  IMDB_Rating: number;
 }
 
 interface IWatchLaterItem {
   movieId: number;
   title: string;
   thumbnail: string;
+  IMDB_Rating: number;
 }
 
 interface IRatingItem {
@@ -55,14 +57,16 @@ const userSchema: Schema<IUser> = new Schema(
       {
         movieId: { type: Number, required: true },
         title: { type: String, required: true },
-        thumbnail: { type: String, required: true }
+        thumbnail: { type: String, required: true },
+        IMDB_Rating: { type: Number, required: true }
       }
     ],
     watchLater: [
       {
         movieId: { type: Number, required: true },
         title: { type: String, required: true },
-        thumbnail: { type: String, required: true }
+        thumbnail: { type: String, required: true },
+        IMDB_Rating: { type: Number, required: true }
       }
     ],
     ratings: [

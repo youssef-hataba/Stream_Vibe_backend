@@ -25,7 +25,7 @@ export const getUserProfile = asyncHandler(async (req: AuthRequest, res: Respons
 });
 
 export const addToFavorites = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const { movieId, title, thumbnail } = req.body;
+  const { movieId, title, thumbnail, IMDB_Rating } = req.body;
   const user = await User.findById(req.user.id);
 
   if (!user) return res.status(404).json({ message: "User not found" });
@@ -37,7 +37,7 @@ export const addToFavorites = asyncHandler(async (req: AuthRequest, res: Respons
   const exists = user.favorites.some((item) => item.movieId.toString() === movieId);
   if (exists) return res.status(400).json({ message: "Already in favorites" });
 
-  user.favorites.push({ movieId, title, thumbnail });
+  user.favorites.push({ movieId, title, thumbnail, IMDB_Rating });
   await user.save();
 
   res.status(200).json({ status: "success", favorites: user.favorites });
@@ -58,7 +58,7 @@ export const removeFromFavorites = asyncHandler(async (req: AuthRequest, res: Re
 
 
 export const addToWatchLater = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const { movieId, title, thumbnail } = req.body;
+  const { movieId, title, thumbnail, IMDB_Rating } = req.body;
   const user = await User.findById(req.user.id);
 
   if (!user) return res.status(404).json({ message: "User not found" });
@@ -66,7 +66,7 @@ export const addToWatchLater = asyncHandler(async (req: AuthRequest, res: Respon
   const exists = user.watchLater.some((item) => item.movieId.toString() === movieId);
   if (exists) return res.status(400).json({ message: "Already in watch later" });
 
-  user.watchLater.push({ movieId, title, thumbnail });
+  user.watchLater.push({ movieId, title, thumbnail, IMDB_Rating });
   await user.save();
 
   res.status(200).json({ status: "success", watchLater: user.watchLater });
