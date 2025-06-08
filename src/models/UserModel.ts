@@ -25,7 +25,7 @@ interface IUser extends Document {
   lastName: string;
   email: string;
   password: string;
-  profilePic: string;
+  profilePic?: string;
   fullName: string;
   isActive: boolean;
   deactivatedAt: Date | null;
@@ -49,7 +49,7 @@ const userSchema: Schema<IUser> = new Schema(
       index: true
     },
     password: { type: String, required: true, minlength: 6 },
-    profilePic: { type: String },
+    profilePic: { type: String , default:"" },
     isActive: { type: Boolean, default: true },
     deactivatedAt: { type: Date, default: null },
 

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import asyncHandler from "../middlewares/asyncHandler";
 import User from "../models/UserModel";
 import Review from "../models/ReviewModel";
+import cloudinary from "../config/cloudinary";
 
 export interface AuthRequest extends Request {
   user?: any;
@@ -85,3 +86,25 @@ export const removeFromWatchLater = asyncHandler(async (req: AuthRequest, res: R
   res.status(200).json({ status: "success", watchLater: user.watchLater });
 });
 
+export const uploadProfilePicture = asyncHandler(async (req: AuthRequest, res: Response) => {
+  const userId = req.user.id;
+
+  const user = await User.findById(userId);
+  if (!user) return res.status(404).json({ message: 'User not found' });
+
+  if (!req.file) return res.status(400).json({ message: 'No image uploaded' });
+
+  const uploadResult = await cloudinary.uploader.upload_stream(
+    { folder: 'profile_images' },
+    async (error, result) => {
+      if (error) return res.status(500).json({ message: 'Cloudinary upload failed', error });
+
+      user.profilePic = result?.secure_url;
+      await user.save();
+
+      return res.status(200).json({ message: 'Image uploaded', imageUrl: user.profilePic });
+    }
+  );
+
+  uploadResult.end(req.file.buffer);
+});
