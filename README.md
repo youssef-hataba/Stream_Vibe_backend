@@ -68,7 +68,7 @@ src/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/Stream_Vibe_backend.git
+   git clone https://github.com//youssef-hataba/Stream_Vibe_backend.git
    cd Stream_Vibe_backend
    ```
 
@@ -210,7 +210,7 @@ The API will be available at `http://localhost:5000/api`
 
 ## 💻 Frontend
 
-This backend powers the [Stream Vibe Frontend](https://github.com/yourusername/stream-vibe-frontend), built with Next.js 15.
+This backend powers the [Stream Vibe Frontend](https://github.com/youssef-hataba/Stream_Vibe), built with Next.js 15.
 
 Make sure to set:
 
